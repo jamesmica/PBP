@@ -218,12 +218,13 @@
                     ressources: document.getElementById("ressources").value,
                     contactNom: document.getElementById("contactNom").value,
                     contactEmail: document.getElementById("contactEmail").value,
+                    impact: document.getElementById("impact").value,
                     infosSupplementaires: document.getElementById("infosSupplementaires").value
                   };
                 
                   var formDataAsString = JSON.stringify(formData);
 
-                  fetch('https://script.google.com/macros/s/AKfycbyz0ULyWk0-4huH3aoMxcSmnQGckwYBC0KV2WCn5do7uyTTtPH6MforqEl3gthEXHtcxA/exec', {
+                  fetch('https://script.google.com/macros/s/AKfycbzAN3HIU4Ivaai6t6Us3FrEw4jtAZ2S2qv9d70e6jtBNpm_Xm8yVCTfQrCmwdjd0s-HBg/exec', {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'text/plain' // Définir le type de contenu en texte brut
@@ -598,10 +599,36 @@
       </div>
 
       <div class="form-section" id="section5" style="display: none;">
-      <h5>10. Si vous avez d'autres infos à nous partager ...</h5>
+      <h5>10. Sur une échelle de 1 à 5 (1 représentant "Peu efficace" et 5 "Très efficace"), comment évalueriez-vous l'impact de cette Bonne Pratique ?</h5>
+      <label>Impact (1 = Peu efficace à 5 = Très efficace) :</label>
+      <div id="rating-container">
+        <!-- Les ronds pour les notes de 1 à 5 -->
+        <span class="rating-circle" data-value="1">1</span>
+        <span class="rating-circle" data-value="2">2</span>
+        <span class="rating-circle" data-value="3">3</span>
+        <span class="rating-circle" data-value="4">4</span>
+        <span class="rating-circle" data-value="5">5</span>
+      </div>
+      <input type="hidden" id="impact" name="impact" value="">
+
+      <script>
+          document.querySelectorAll('.rating-circle').forEach(function(circle) {
+              circle.addEventListener('click', function() {
+                  const ratingValue = this.getAttribute('data-value');
+                  document.getElementById('impact').value = ratingValue; // Met à jour la valeur de l'input caché
+      
+                  // Met à jour le style pour refléter la sélection
+                  document.querySelectorAll('.rating-circle').forEach(function(circle) {
+                      circle.classList.remove('selected');
+                  });
+                  this.classList.add('selected');
+              });
+          });
+      </script>
+      <h5>11. Si vous avez d'autres infos à nous partager ...</h5>
       <label for="infosSupplementaires">Infos Supplémentaires :</label>
       <textarea id="infosSupplementaires" name="infosSupplementaires" rows="4" cols="50"></textarea><br>
-      </div>
+      </div> 
       <div class="form-navigation">
         <button type="button" id="prevBtn" class="navigation-button" onclick="navigate(-1)">Précédent</button>
         <button type="button" id="nextBtn" class="navigation-button" onclick="navigate(1)">Suivant</button>
