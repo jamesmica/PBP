@@ -1091,8 +1091,8 @@ form#bpForm {
         height: 30px; /* Taille du cercle */
         border-radius: 50%; /* Rend le span circulaire */
         background-color: #ccc; /* Couleur de fond par défaut */
-        color: black; /* Couleur du texte */
         user-select: none; /* Empêche la sélection du texte au clic */
+        color: white;
     }
 
     div#rating-container {
