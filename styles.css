@@ -1092,7 +1092,7 @@ form#bpForm {
         border-radius: 50%; /* Rend le span circulaire */
         background-color: #ccc; /* Couleur de fond par défaut */
         user-select: none; /* Empêche la sélection du texte au clic */
-        color: white;
+        color: black;
     }
 
     div#rating-container {
@@ -1101,6 +1101,7 @@ form#bpForm {
         justify-content: center;
         flex-wrap: wrap;
         align-items: center;
+        min-width: 300px;
     }
 
     span[data-value="1"].selected, span[data-value="1"]:hover {
@@ -1586,7 +1587,28 @@ form#bpForm {
         font-size: 12px;
     }
 
+    div#rating-container {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+        min-width: 300px;
+        margin-left: -32px;
+    }
 
+    .close-btn-addbp {
+        margin: 0;
+        margin-top: -8px !important;
+        margin-left: -10px;
+        cursor: pointer;
+        position: fixed;
+        top: 48px;
+        left: 32px;
+    }
 
+    #bpForm textarea, #bpForm input[type="text"], #bpForm input[type="email"] {
+        width: 240px;
+    }
 
 }
