@@ -133,17 +133,11 @@ function adjustAndSortVignettesData(selectedInsee) {
   if (!inseeLength) {
     return ;
   }
-  console.log("length.insee",inseeLength);
+
   //STRATE
   const inseeValue = selectElement.selectedOptions[0].value;
   const selectedData = pertinenceData.find(item => String(item.INSEE) === String(inseeValue));
-  if (selectedData) {
-    const strateValue = selectedData.STRATE;
-    console.log('STRATE trouvée:', strateValue);
-    // Ici, vous pouvez ajuster les vignettesData basé sur la STRATE trouvée
-  } else {
-    console.log('Aucune STRATE trouvée pour cet INSEE');
-  }
+
   const strateValue = selectedData.STRATE;
 
   //GEOLOC
@@ -207,8 +201,6 @@ function adjustAndSortVignettesData(selectedInsee) {
   // Trier vignettesData par SCORE décroissant
   vignettesData.sort((a, b) => parseFloat(b.SCORE) - parseFloat(a.SCORE));
 
-  // Afficher le tableau après le tri pour vérification
-  console.log(vignettesData);
   displayVignettes(vignettesData);
   // window.location.hash = '#decouvrir';
   history.pushState({page: 'decouvrir'}, '', '?page=decouvrir');
@@ -492,13 +484,12 @@ function updateCanonicalIfIdPresent() {
   function displayVignettes(data) {
     const container = $('#vignettes-container');
     const loadMoreBtn = $('#load-more-btn').detach(); // Détacher le bouton temporairement
-    container.empty(); // Vider le conteneur
+    container.empty(); 
 
-   console.log(displayCount);
-    
     const dataToDisplay = data.slice(0, displayCount);
+
     dataToDisplay.forEach(item => {
-      if (item.DEP && item.INTITULE) {
+      if (item.INTITULE) {
         const vignette = $(`
           <div class="vignette">
             <div class="details-link" tabindex="0">
@@ -517,11 +508,9 @@ function updateCanonicalIfIdPresent() {
           handleNavigation();
         });
         container.append(vignette);
-            // Optionnel : Cacher le bouton si toutes les vignettes sont affichées
 
-      } 
+      }
     });
-
 
 
     container.append(loadMoreBtn); // Remettre le bouton dans le conteneur
@@ -536,7 +525,6 @@ function updateCanonicalIfIdPresent() {
     }
 
   }
-
   
   // Fonction de filtrage/tri des vignettes
   function filterVignettes() {
@@ -564,27 +552,24 @@ function updateCanonicalIfIdPresent() {
              themaMatch;
     });
   
-    // Ensuite, vérifiez si une valeur de tri a été sélectionnée et appliquez le tri si nécessaire
+    // Ensuite, vérifier si une valeur de tri a été sélectionnée et appliquez le tri si nécessaire
     if (sortBy) {
       filteredData.sort((a, b) => {
-        // Assurez-vous de gérer correctement les chaînes et les nombres
         let valueA = isNaN(a[sortBy]) ? a[sortBy]?.toLowerCase() : parseFloat(a[sortBy]);
         let valueB = isNaN(b[sortBy]) ? b[sortBy]?.toLowerCase() : parseFloat(b[sortBy]);
         
-        if (valueA < valueB) return -1;
-        if (valueA > valueB) return 1;
+        if (valueA < valueB) return 1; // Inverser ici
+        if (valueA > valueB) return -1; // Et ici
         return 0;
       });
-    }
-  
-    // Afficher les données filtrées et triées
+    }    
+    
     displayVignettes(filteredData);
   }
 
   // Attachement des événements de filtrage
   $('#search-input').on('input', filterVignettes);
   $('#search-input').on('change', filterVignettes);
-  $('#strate-select').on('change', filterVignettes);
   $('#produit-select').on('change', filterVignettes);
   $('#load-more-btn').on('click', filterVignettes);
   $('#sort-select').on('change', filterVignettes);
@@ -644,8 +629,6 @@ function handleNavigation() {
     window.addEventListener('popstate', function(event) {
       // Gère le changement d'état ici
       if (event.state) {
-        // Utilisez l'objet état de event.state pour restaurer l'état de la page
-        console.log("État de page :", event.state);
         recover();
       }
 
@@ -684,7 +667,6 @@ function handleNavigation() {
 
   document.getElementById('addBP').addEventListener('click',function() {
     var addBP = document.getElementById('bpForm');
-    console.log(addBP);
     addBP.classList.toggle("addbpvisible");
   });
 
