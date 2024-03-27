@@ -1,4 +1,38 @@
 $(document).ready(function () {
+
+
+  $(document).on('click', '.vignette', function() {
+    var vignetteTitle = $(this).find('.BP_title').text(); // ou tout autre élément qui contient un identifiant unique pour la vignette
+    gtag('event', 'click', {
+      'event_category': 'Vignettes',
+      'event_label': vignetteTitle
+    });
+  });
+
+
+  $(document).on('click', '.download-btn', function() {
+    var downloadItem = $(this).attr('href'); // Ou tout autre attribut qui identifie de manière unique ce que l'utilisateur télécharge
+    gtag('event', 'download', {
+      'event_category': 'Download',
+      'event_label': downloadItem
+    });
+  });
+
+  document.getElementById('submitButton').addEventListener('click', function() {
+    gtag('event', 'submit', {
+      'event_category': 'Form Submission',
+      'event_label': 'Bonne Pratique Form'
+    });
+  });
+
+  document.getElementById('addBP').addEventListener('click', function() {
+    gtag('event', 'click', {
+      'event_category': 'Add BP Button',
+      'event_label': 'Add Bonne Pratique'
+    });
+  });
+
+  
   document.getElementById('sort-select').addEventListener('change', function() {
     var selectedItem = this.options[this.selectedIndex].text; // Obtenir le texte de l'option sélectionnée
     // Utilisez 'gtag' pour envoyer un événement de suivi à Google Analytics
@@ -20,6 +54,12 @@ $(document).ready(function () {
   $('#strate-select').selectize({
     onChange: filterVignettes
   });
+
+  $('#sort-select').selectize({
+    onChange: filterVignettes
+  });
+
+
 
   var $select2 = $('#insee').selectize({
     valueField: 'INSEE',
@@ -498,12 +538,15 @@ function updateCanonicalIfIdPresent() {
   }
 
   
-  // Fonction de filtrage des vignettes
+  // Fonction de filtrage/tri des vignettes
   function filterVignettes() {
     const query = $('#search-input').val().toLowerCase();
     const strate = $('#strate-select').val();
     const depnom = $('#dep-nom-select').val();
     const thema = $('#produit-select').val();
+    const sortBy = $('#sort-select').val(); // Récupérez la valeur de tri ici
+  
+    // Filtrer d'abord les données en fonction des critères de recherche
     const filteredData = vignettesData.filter(item => {
       const themaMatch = thema.length === 0 || [item.THEMA1, item.THEMA2, item.THEMA3, item.THEMA4].some(themaItem => thema.includes(String(themaItem)));
       return (item.DEP?.toLowerCase().includes(query) ||
@@ -520,22 +563,23 @@ function updateCanonicalIfIdPresent() {
              (item.DEP_NOM === depnom || depnom === "") &&
              themaMatch;
     });
+  
+    // Ensuite, vérifiez si une valeur de tri a été sélectionnée et appliquez le tri si nécessaire
+    if (sortBy) {
+      filteredData.sort((a, b) => {
+        // Assurez-vous de gérer correctement les chaînes et les nombres
+        let valueA = isNaN(a[sortBy]) ? a[sortBy]?.toLowerCase() : parseFloat(a[sortBy]);
+        let valueB = isNaN(b[sortBy]) ? b[sortBy]?.toLowerCase() : parseFloat(b[sortBy]);
+        
+        if (valueA < valueB) return -1;
+        if (valueA > valueB) return 1;
+        return 0;
+      });
+    }
+  
+    // Afficher les données filtrées et triées
     displayVignettes(filteredData);
   }
-
-  $('#sort-select').on('change', function() {
-    const sortBy = $(this).val(); // Obtenez la valeur sélectionnée
-    if (!sortBy) return; // Si aucune option de tri n'est sélectionnée, ne faites rien
-    console.log(sortBy);
-    // Trier vignettesData en fonction de la valeur sélectionnée
-    vignettesData.sort((a, b) => {
-      // Convertissez en nombres si nécessaire, en supposant que les valeurs peuvent être des chaînes
-      const valueA = parseFloat(a[sortBy]);
-      const valueB = parseFloat(b[sortBy]);
-  
-      return valueB - valueA; // Pour un ordre décroissant
-    });
-  });
 
   // Attachement des événements de filtrage
   $('#search-input').on('input', filterVignettes);

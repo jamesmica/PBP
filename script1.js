@@ -396,6 +396,31 @@ function adjustAndSortVignettesData(selectedInsee) {
 
   }
 
+  $('#sort-select').on('change', function() {
+    const sortBy = $(this).val(); // Obtenez la valeur sélectionnée
+    sortVignettes(sortBy); // Triez les vignettes en fonction de la sélection
+  });
+  
+  function sortVignettes(sortBy) {
+    if (!sortBy) return; // Si aucune option de tri n'est sélectionnée, ne faites rien
+    console.log(sortBy);
+    // Trier vignettesData en fonction de la valeur sélectionnée
+    vignettesData.sort((a, b) => {
+      // Convertissez en nombres si nécessaire, en supposant que les valeurs peuvent être des chaînes
+      const valueA = parseFloat(a[sortBy]);
+      const valueB = parseFloat(b[sortBy]);
+  
+      return valueB - valueA; // Pour un ordre décroissant
+    });
+  
+    // Après le tri, affichez à nouveau les vignettes
+    displayVignettes(vignettesData);
+  }
+
+
+  
+  
+
   // Fonction de filtrage des vignettes
   function filterVignettes() {
     const query = $('#search-input').val().toLowerCase();

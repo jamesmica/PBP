@@ -461,9 +461,9 @@ button#reset-button {
     border-radius: 4px;
     font-family: 'Calibri', 'Arial', 'Roboto', sans-serif;
     padding: 4px;
-    margin-right: 32px;
     cursor: pointer !important;
     font-weight: bold;
+    margin-left: 24px;
 }
 
 button#reset-button:hover {
@@ -661,7 +661,7 @@ input#search-input {
     border-radius: 4px;
     font-family: 'Calibri', 'Arial', 'Roboto', sans-serif;
     cursor: auto;
-    margin-left: 112px;
+    margin-left: 12px;
 }
 
 #thematiques {
@@ -1195,6 +1195,7 @@ form#bpForm {
         padding: 0 10px;
         border-radius: 4px;
         outline: none !important;
+        width: 160px;
     }
 
     /* Style additionnel pour le select afin de masquer la flèche par défaut */
@@ -1203,10 +1204,53 @@ form#bpForm {
     -moz-appearance: none;    /* Pour Firefox */
     appearance: none;         /* Standard */
     background-size: 12px; /* Adapter la taille de l'icône de flèche */
+    
     }
 
+    #sort-container img, #search-container img {
+        width: auto;
+        height: 18px;
+    }
 
-@media screen and (max-width: 1166px) {
+    #sort-container img {
+        width: auto;
+        height: 18px;
+        margin-left: -52px;
+        cursor: pointer;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    #search-container img {
+        width: auto;
+        height: 18px;
+        margin-left: -44px;
+        cursor: pointer;
+        margin-right: 16px;
+        pointer-events: none;
+    }
+    
+    div#sort-container, div#search-container {
+        display: flex;
+        align-items: center;
+    }
+
+    #sort-container .selectize-dropdown-content, #sort-container .selectize-dropdown-content div {
+        width: 136px !important;
+        margin: 0;
+    }
+    
+   #sort-container div.selectize-dropdown.single.uniform-select {
+    width: 160px !important;
+   }
+
+   #decouvrir #sort-container .selectize-input:after {
+    display: none !important;
+}
+
+
+
+@media screen and (max-width: 1089px) {
 
     h1.titreBP {
         height: 40px;
@@ -1411,7 +1455,7 @@ form#bpForm {
         margin-left: 64px;
     }
 
-    #decouvrir .selectize-control, #decouvrir #sort-select {
+    #decouvrir .selectize-control, #decouvrir #sort-container {
         display: none;
     }
 
@@ -1629,6 +1673,12 @@ form#bpForm {
 
     #bpForm textarea, #bpForm input[type="text"], #bpForm input[type="email"] {
         width: 240px;
+    }
+
+    div#sort-container, div#search-container {
+        display: flex;
+        align-items: center;
+        margin-left: 8px;
     }
 
 }

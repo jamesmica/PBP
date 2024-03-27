@@ -244,7 +244,6 @@
 
               </script>
                 <div id="filters">
-                        <button id="reset-button" onclick="resetFilters()" href="#">Réinitialiser</button>
                         <select id="produit-select" name="produit" multiple>
                             <option value="">Choisir une thématique</option>
                             <optgroup label="Attractivité du territoire">
@@ -475,15 +474,22 @@
                     </select> 
                     <!-- Les options seront ajoutées dynamiquement par le script.js -->
                   </select>
-                  <input type="text" id="search-input" placeholder="Filtrer par territoire, mots-clés...">
-                  <select id="sort-select" class="uniform-select">
-                    <option value="" disabled selected>Trier par objectif</option>
-                    <option value="Valorisable">Valorisable</option>
-                    <option value="Original">Original</option>
-                    <option value="Innovant">Innovant</option>
-                    <option value="Économique">Économique</option>
-                    <option value="Essaimable">Essaimable</option>
-                  </select>
+                  <div id="search-container">
+                    <input type="text" id="search-input" placeholder="Filtrer par territoire, mots-clés...">
+                    <img id="search-icon" src="/www/glass.png" alt="search-icon"/>
+                  </div>
+                  <div id="sort-container">
+                    <select id="sort-select" class="uniform-select" required>
+                      <option value="" disabled selected hidden>Trier par objectif</option>
+                      <option value="Valorisable">Valorisable</option>
+                      <option value="Original">Original</option>
+                      <option value="Innovant">Innovant</option>
+                      <option value="Économique">Économique</option>
+                      <option value="Essaimable">Essaimable</option>
+                    </select>
+                    <img id="sort-icon" src="/www/sort.png" alt="sort-icon"/>
+                  </div>
+                  <button id="reset-button" onclick="resetFilters()" href="#">Réinitialiser</button>
                   
                 </div>
                 <div id="vignettes-container">
