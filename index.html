@@ -476,6 +476,15 @@
                     <!-- Les options seront ajoutées dynamiquement par le script.js -->
                   </select>
                   <input type="text" id="search-input" placeholder="Filtrer par territoire, mots-clés...">
+                  <select id="sort-select" class="uniform-select">
+                    <option value="" disabled selected>Trier par objectif</option>
+                    <option value="Valorisable">Valorisable</option>
+                    <option value="Original">Original</option>
+                    <option value="Innovant">Innovant</option>
+                    <option value="Économique">Économique</option>
+                    <option value="Essaimable">Essaimable</option>
+                  </select>
+                  
                 </div>
                 <div id="vignettes-container">
                     <!-- Les vignettes s'afficheront ici -->
@@ -703,8 +712,8 @@
               // Utilisez control.clearOptions(); si vous souhaitez également effacer toutes les options dynamiquement chargées
           });
 
-          // Réinitialisez la valeur de l'élément input et déclenchez les événements
           var input = document.getElementById('search-input');
+          var tri = document.getElementById('sort-select');
           if (input) {
               input.value = '';
               // Déclenchez l'événement 'input' pour les gestionnaires attachés à cet événement
@@ -712,6 +721,14 @@
               // Déclenchez également l'événement 'change' si nécessaire
               input.dispatchEvent(new Event('change'));
           }
+          if (tri) {
+              // Assurez-vous que la première option est la valeur par défaut pour le tri
+              tri.selectedIndex = 0;
+              // Déclenchez l'événement 'change' pour les gestionnaires attachés à cet événement
+              $(tri).change(); // Avec jQuery
+              // tri.dispatchEvent(new Event('change')); // Sans jQuery
+          }
+
       }
 
 

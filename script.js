@@ -1,4 +1,13 @@
 $(document).ready(function () {
+  document.getElementById('sort-select').addEventListener('change', function() {
+    var selectedItem = this.options[this.selectedIndex].text; // Obtenir le texte de l'option sélectionnée
+    // Utilisez 'gtag' pour envoyer un événement de suivi à Google Analytics
+    gtag('event', 'select_content', {
+        'content_type': 'sort_select',
+        'item_id': selectedItem
+    });
+});
+
   // Initialisation de Selectize pour dep-nom-select avec gestion des changements
   $('#dep-nom-select').selectize({
     onChange: filterVignettes // Appel de la fonction de filtrage lors d'un changement de sélection
@@ -488,6 +497,7 @@ function updateCanonicalIfIdPresent() {
 
   }
 
+  
   // Fonction de filtrage des vignettes
   function filterVignettes() {
     const query = $('#search-input').val().toLowerCase();
@@ -513,12 +523,27 @@ function updateCanonicalIfIdPresent() {
     displayVignettes(filteredData);
   }
 
+  $('#sort-select').on('change', function() {
+    const sortBy = $(this).val(); // Obtenez la valeur sélectionnée
+    if (!sortBy) return; // Si aucune option de tri n'est sélectionnée, ne faites rien
+    console.log(sortBy);
+    // Trier vignettesData en fonction de la valeur sélectionnée
+    vignettesData.sort((a, b) => {
+      // Convertissez en nombres si nécessaire, en supposant que les valeurs peuvent être des chaînes
+      const valueA = parseFloat(a[sortBy]);
+      const valueB = parseFloat(b[sortBy]);
+  
+      return valueB - valueA; // Pour un ordre décroissant
+    });
+  });
+
   // Attachement des événements de filtrage
   $('#search-input').on('input', filterVignettes);
   $('#search-input').on('change', filterVignettes);
   $('#strate-select').on('change', filterVignettes);
   $('#produit-select').on('change', filterVignettes);
   $('#load-more-btn').on('click', filterVignettes);
+  $('#sort-select').on('change', filterVignettes);
   $('#insee-select').on('change', adjustAndSortVignettesData);
 
   // Chargement initial des données

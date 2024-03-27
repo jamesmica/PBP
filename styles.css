@@ -1186,7 +1186,27 @@ form#bpForm {
         display: flex;
     }
 
-@media screen and (max-width: 1045px) {
+    /* Exemple de style CSS uniforme */
+    .uniform-select, .uniform-input {
+        height: 34px;
+        border: none;
+        font-size: 14px;
+        color: #333;
+        padding: 0 10px;
+        border-radius: 4px;
+        outline: none !important;
+    }
+
+    /* Style additionnel pour le select afin de masquer la flèche par défaut */
+    .uniform-select {
+    -webkit-appearance: none; /* Pour Safari */
+    -moz-appearance: none;    /* Pour Firefox */
+    appearance: none;         /* Standard */
+    background-size: 12px; /* Adapter la taille de l'icône de flèche */
+    }
+
+
+@media screen and (max-width: 1166px) {
 
     h1.titreBP {
         height: 40px;
