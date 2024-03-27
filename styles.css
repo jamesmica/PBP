@@ -1411,7 +1411,7 @@ form#bpForm {
         margin-left: 64px;
     }
 
-    #decouvrir .selectize-control {
+    #decouvrir .selectize-control, #decouvrir #sort-select {
         display: none;
     }
 
