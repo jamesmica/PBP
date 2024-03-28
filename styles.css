@@ -4,6 +4,7 @@ body, html {
     font-family: 'Calibri', 'Arial', 'Roboto', sans-serif, 'Courier';
 }
 
+
 div#accueil {
     margin-left: 80px;
     width: calc(100vw - 80px);

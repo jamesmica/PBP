@@ -1,6 +1,5 @@
 $(document).ready(function () {
 
-
   $(document).on('click', '.vignette', function() {
     var vignetteTitle = $(this).find('.BP_title').text(); // ou tout autre élément qui contient un identifiant unique pour la vignette
     gtag('event', 'click', {
