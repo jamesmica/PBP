@@ -4,6 +4,9 @@ body, html {
     font-family: 'Calibri', 'Arial', 'Roboto', sans-serif, 'Courier';
 }
 
+.BP_page_ref a:not([href]), .BP_page_ref a[href=""] {
+    display: none;
+}
 
 div#accueil {
     margin-left: 80px;
