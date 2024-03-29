@@ -288,25 +288,25 @@ function removeMetaProperty(property) {
   });
 }
 
-function updateCanonicalIfIdPresent() {
-  const currentUrl = new URL(window.location.href);
-  const searchParams = currentUrl.searchParams;
+// function updateCanonicalIfIdPresent() {
+//   const currentUrl = new URL(window.location.href);
+//   const searchParams = currentUrl.searchParams;
 
-  if (searchParams.has('id')) {
-    let canonicalLink = document.querySelector("link[rel='canonical']");
-    if (!canonicalLink) {
-      canonicalLink = document.createElement("link");
-      canonicalLink.setAttribute("rel", "canonical");
-      document.head.appendChild(canonicalLink);
-    }
+//   if (searchParams.has('id')) {
+//     let canonicalLink = document.querySelector("link[rel='canonical']");
+//     if (!canonicalLink) {
+//       canonicalLink = document.createElement("link");
+//       canonicalLink.setAttribute("rel", "canonical");
+//       document.head.appendChild(canonicalLink);
+//     }
 
-    canonicalLink.setAttribute("href", currentUrl.href);
-  }
-}
+//     canonicalLink.setAttribute("href", currentUrl.href);
+//   }
+// }
 
 function displayDetails(id) {
   const details = vignettesData.find(item => item.detailsId === id);
-  updateCanonicalIfIdPresent();
+  // updateCanonicalIfIdPresent();
   removeMetaProperty('og:title');
   removeMetaProperty('og:type');
   removeMetaProperty('og:image');
