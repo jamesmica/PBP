@@ -342,10 +342,10 @@ function displayDetails(id) {
     <h3><span itemprop="location">${details.PAYS}</span> | <span itemprop="location">${details.TER}</span> (${parseInt(details.POP).toLocaleString()} hab.) | <span itemprop="startDate">${details.ANNEE}</span> </h3>
     <div class="BP_page_content">
     <div class="BP_page_imgdownload">
-    <img src="www/webpv/${details.WEBP}" class="BP_page_img" alt="${details.INTITULE}" loading="lazy"/>
+    <img itemprop="image" src="www/webpv/${details.WEBP}" class="BP_page_img" alt="${details.INTITULE}" loading="lazy"/>
     <a href="www/pdf/Bonnes Pratiques_Partie${details.N}.pdf" download="${details.INTITULE}">Télécharger en PDF<i class="fa-solid fa-download"></i></a>
     </div>
-    <span itemprop="about" class="BP_page_description">
+    <span itemprop="description" class="BP_page_description">
     <p>${details.DESCRIPTION1}</p>
     <p>${details.DESCRIPTION2}</p>
     <p>${details.DESCRIPTION3}</p>

@@ -472,7 +472,6 @@
                     <option value='Slovénie'>Slovénie</option>
                     </select> 
                     <!-- Les options seront ajoutées dynamiquement par le script.js -->
-                  </select>
                   <div id="search-container">
                     <input type="text" id="search-input" placeholder="Filtrer par territoire, mots-clés...">
                     <img id="search-icon" src="/www/glass.png" alt="search-icon"/>
@@ -496,7 +495,7 @@
                     <button id="load-more-btn">Suivant</button>
                 </div>
                 <div id="details-container" itemscope itemtype="https://schema.org/Event">
-                    <!-- Les détails seront chargés ici -->
+                    <!-- Les détails de la vignette seront chargés ici -->
                     Chargement des détails...
                 </div>
             </div>
@@ -527,9 +526,9 @@
       </select>
       <script>
         $('#insee').selectize({
-        valueField: 'INSEE', // Utilisé pour la valeur interne
-        labelField: 'NOM_COUV', // Utilisé pour la recherche
-        searchField: ['NOM_COUV', 'INSEE'], // Permet de rechercher à la fois par NOM_COUV et INSEE
+        valueField: 'INSEE', 
+        labelField: 'NOM_COUV',
+        searchField: ['NOM_COUV', 'INSEE'],
         maxOptions: 100,
         sortField: [
         {
@@ -542,17 +541,15 @@
         ],
         render: {
         option: function(item, escape) {
-            // Personnalisation de l'affichage des options dans le menu déroulant
             return '<div>' + escape(item.NOM_COUV) + ' - (' + escape(item.INSEE) + ')</div>';
         },
         item: function(item, escape) {
-            // Personnalisation de l'affichage de l'option sélectionnée
             return '<div>' + escape(item.NOM_COUV) + ' - (' + escape(item.INSEE) + ')</div>';
         }
         },
         load: function(query, callback) {
         $.ajax({
-            url: 'pertinence.json', // Votre fichier JSON
+            url: 'pertinence.json',
             type: 'GET',
             dataType: 'json',
             error: function() {
@@ -616,7 +613,6 @@
       <h5>10. Sur une échelle de 1 à 5 (1 représentant "Peu d'impact" et 5 "Beaucoup d'impact"), comment évalueriez-vous l'impact de cette Bonne Pratique ?</h5>
       <label>Impact (1 = Peu d'impact à 5 = Beaucoup d'impact) :</label>
       <div id="rating-container">
-        <!-- Les ronds pour les notes de 1 à 5 -->
         <span class="rating-circle" data-value="1">1</span>
         <span class="rating-circle" data-value="2">2</span>
         <span class="rating-circle" data-value="3">3</span>
@@ -629,9 +625,7 @@
           document.querySelectorAll('.rating-circle').forEach(function(circle) {
               circle.addEventListener('click', function() {
                   const ratingValue = this.getAttribute('data-value');
-                  document.getElementById('impact').value = ratingValue; // Met à jour la valeur de l'input caché
-      
-                  // Met à jour le style pour refléter la sélection
+                  document.getElementById('impact').value = ratingValue;
                   document.querySelectorAll('.rating-circle').forEach(function(circle) {
                       circle.classList.remove('selected');
                   });
@@ -669,7 +663,7 @@
             var emailInput = document.getElementById('email');
             if (!emailInput.checkValidity()) {
               emailInput.reportValidity();
-              return; // Prevent moving to the next section.
+              return;
             }
           }
 
@@ -692,10 +686,10 @@
 
           if (currentSection == maxSections) {
             document.getElementById('nextBtn').style.display = 'none';
-            document.getElementById('submitButton').style.display = 'inline-block'; // Show submit on the last section
+            document.getElementById('submitButton').style.display = 'inline-block';
           } else {
             document.getElementById('nextBtn').style.display = 'inline-block';
-            document.getElementById('submitButton').style.display = 'none'; // Hide submit on other sections
+            document.getElementById('submitButton').style.display = 'none';
           }
         }
 
@@ -709,29 +703,22 @@
     <script src="script_thema.js"></script>
     <script>
       function resetFilters() {
-          // Réinitialiser chaque selectize
           var selectizes = $('.selectized').selectize();
           $.each(selectizes, function(index, select) {
               var control = select.selectize;
-              control.clear(); // Pour les sélections simples
-              // Utilisez control.clearOptions(); si vous souhaitez également effacer toutes les options dynamiquement chargées
+              control.clear();
           });
 
           var input = document.getElementById('search-input');
           var tri = document.getElementById('sort-select');
           if (input) {
               input.value = '';
-              // Déclenchez l'événement 'input' pour les gestionnaires attachés à cet événement
               input.dispatchEvent(new Event('input'));
-              // Déclenchez également l'événement 'change' si nécessaire
               input.dispatchEvent(new Event('change'));
           }
           if (tri) {
-              // Assurez-vous que la première option est la valeur par défaut pour le tri
               tri.selectedIndex = 0;
-              // Déclenchez l'événement 'change' pour les gestionnaires attachés à cet événement
-              $(tri).change(); // Avec jQuery
-              // tri.dispatchEvent(new Event('change')); // Sans jQuery
+              $(tri).change();
           }
 
       }
