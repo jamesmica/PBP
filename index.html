@@ -220,8 +220,10 @@
                     impact: document.getElementById("impact").value,
                     infosSupplementaires: document.getElementById("infosSupplementaires").value
                   };
-                
+
                   var formDataAsString = JSON.stringify(formData);
+                  const container = document.getElementById('bpForm')
+                      container.classList.toggle('addbpvisible');
 
                   fetch('https://script.google.com/macros/s/AKfycbzAN3HIU4Ivaai6t6Us3FrEw4jtAZ2S2qv9d70e6jtBNpm_Xm8yVCTfQrCmwdjd0s-HBg/exec', {
                     method: 'POST',
@@ -606,7 +608,7 @@
       <label for="contactNom">Nom du contact :</label>
       <input type="text" id="contactNom" name="contactNom" size="50"><br>
       <label for="contactEmail">Email du contact :</label>
-      <input type="email" id="contactEmail" name="contactEmail" size="50"><br>
+      <input type="email" id="contactEmail" name="email" size="50" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Veuillez entrer une adresse mail valide."><br>
       </div>
 
       <div class="form-section" id="section5" style="display: none;">
@@ -663,6 +665,14 @@
             var emailInput = document.getElementById('email');
             if (!emailInput.checkValidity()) {
               emailInput.reportValidity();
+              return;
+            }
+          }
+
+          if (direction === 1 && currentSection === 4) {
+            var emailInput2 = document.getElementById('contactEmail');
+            if (!emailInput2.checkValidity()) {
+              emailInput2.reportValidity();
               return;
             }
           }
