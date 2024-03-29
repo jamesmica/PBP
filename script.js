@@ -465,7 +465,7 @@ function displayVignettes(data) {
   dataToDisplay.forEach(item => {
     if (item.INTITULE) {
       const vignette = $(`
-        <div class="vignette">
+        <div class="vignette"  itemscope itemtype="https://schema.org/Event">
           <div class="details-link" tabindex="0">
             <img src="www/webp/${item.WEBP}" alt="${item.INTITULE}" loading="lazy"/>
             <div class="BP_text">
