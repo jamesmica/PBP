@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+
   $(document).on('click', '.vignette', function() {
     var vignetteTitle = $(this).find('.BP_title').text();
     gtag('event', 'click', {
@@ -57,7 +58,7 @@ $.ajax({
 });
 
   $('#search-input').on('input', filterVignettes);
-  $('#search-input').on('change', filterVignettes);
+  $('#search-input').on('change',  $(this).blur());
   $('#produit-select').on('change', filterVignettes);
   $('#load-more-btn').on('click', filterVignettes);
   $('#sort-select').on('change', filterVignettes);
@@ -149,9 +150,7 @@ var selectize2 = $select2[0].selectize;
       dataType: 'json',
       success: function(res) {
           selectize.addOption(res);
-          selectize.refreshOptions();
           selectize2.addOption(res);
-          selectize2.refreshOptions();
       }
   });
   }
