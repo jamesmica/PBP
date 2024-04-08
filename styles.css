@@ -1260,6 +1260,10 @@ form#bpForm {
     display: none !important;
 }
 
+a[itemprop="url"] {
+    visibility: hidden;
+}
+
 
 
 @media screen and (max-width: 1089px) {
