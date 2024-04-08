@@ -232,21 +232,29 @@ a.nav-link {
     text-align: center;
 }
 
+p.titreBP {
+    color: rgb(0, 117, 59);
+    font-weight: bold;
+    text-align: center;
+    font-size: 32px;
+}
+
 /* Découvrir */
 div#decouvrir {
     margin-left: 80px;
 }
 
-h1.titreBP {
+p.titreBP {
     height: 40px;
     margin: 16px;
 }
 
-#thematiques h1.titreBP {
+#thematiques p.titreBP {
     margin-bottom: 56px;
 }
 
-#thematiques h1.titreBP, #accueil h1.titreBP {
+#thematiques p.titreBP, #accueil h1.titreBP {
+    margin: 16px;
     margin-bottom: 56px;
 }
 
@@ -1256,7 +1264,7 @@ form#bpForm {
 
 @media screen and (max-width: 1089px) {
 
-    h1.titreBP {
+    .titreBP {
         height: 40px;
         margin: 8px;
     }
@@ -1319,8 +1327,10 @@ form#bpForm {
         height: 33px !important;
     }
 
-    #thematiques h1.titreBP, #accueil h1.titreBP {
+    #thematiques p.titreBP, #accueil h1.titreBP {
         margin-bottom: 48px;
+        font-size: 22px;
+        margin: 8px !important;
     }
 
     #thematiques {
@@ -1475,7 +1485,7 @@ form#bpForm {
         font-size: 10px;
     }
 
-    h1.titreBP {
+    p.titreBP {
         height: 64px;
         margin: 8px;
         font-size: 22px;

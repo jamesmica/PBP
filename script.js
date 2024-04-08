@@ -202,7 +202,7 @@ const myChart = new Chart(
 );
 }
 
-fetch('BDD_finale.csv')
+fetch('BDD_finale__.csv')
 .then(response => response.text())
 .then(csvText => {
     Papa.parse(csvText, {
