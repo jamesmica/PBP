@@ -88,14 +88,14 @@ function displayDetails(id) {
   var detailsMarkup = `
     <div class="close-btn">✖ Fermer</div>
     <div class="BP_page_background"></div>
-    <h2 itemprop="name">${details.INTITULE} - ${details.TER} (${details.DEP_NOM})</h2>
-    <h3><span itemprop="location">${details.PAYS}</span> | <span itemprop="location">${details.TER}</span> (${parseInt(details.POP).toLocaleString()} hab.) | <span itemprop="startDate">${details.ANNEE}</span> </h3>
+    <h2 itemprop="headline">${details.INTITULE} - ${details.TER} (${details.DEP_NOM})</h2>
+    <h3><span itemprop="contentLocation">${details.PAYS} | ${details.TER}</span> (${parseInt(details.POP).toLocaleString()} hab.) | <meta itemprop="datePublished" content="${details.ANNEE}-01-01"><span>${details.ANNEE}</span> </h3>
     <div class="BP_page_content">
     <div class="BP_page_imgdownload">
-    <img itemprop="image" src="www/webpv/${details.WEBP}" class="BP_page_img" alt="${details.INTITULE}" loading="lazy"/>
+    <img itemprop="image" src="https://bonnes-pratiques.ithea-conseil.fr/www/webpv/${details.WEBP}" class="BP_page_img" alt="${details.INTITULE}" loading="lazy"/>
     <a href="www/pdf/Bonnes Pratiques_Partie${details.N}.pdf" download="${details.INTITULE}">Télécharger en PDF<i class="fa-solid fa-download"></i></a>
     </div>
-    <span itemprop="description" class="BP_page_description">
+    <span itemprop="articleBody" class="BP_page_description">
     <p>${details.DESCRIPTION1}</p>
     <p>${details.DESCRIPTION2}</p>
     <p>${details.DESCRIPTION3}</p>
@@ -103,7 +103,7 @@ function displayDetails(id) {
     <div class="BP_page_graphref">
     <span class="BP_page_ref">
     <h4>Portée par </h4>
-    <p>${details.CREDIT}</p>
+    <p itemprop="publisher">${details.CREDIT}</p>
     <h4>Contact</h4>
     <p>${details.CONTACT}</p>
     <a href="${details.LINK}">Voir la bonne pratique (lien externe)</a>
@@ -142,7 +142,7 @@ function displayDetails(id) {
   $("#details-container").addClass('open');
   const detailsc = document.getElementById('details-container');
   detailsc.setAttribute("itemscope","");
-  detailsc.setAttribute("itemtype","https://schema.org/Event");
+  detailsc.setAttribute("itemtype","https://schema.org/Article");
   
   const chartData = {
     labels: ['Essaimable', 'Économique', 'Facile', 'Innovant', 'Original', 'Valorisable'],
