@@ -18,9 +18,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0LQ7GD27TM"></script>
-    <script src="https://kit.fontawesome.com/7f38d075bc.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/7f38d075bc.js" crossorigin="anonymous" defer></script>
     <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -81,7 +81,7 @@
         },
         load: function(query, callback) {
             $.ajax({
-                url: 'pertinence.json', // Votre fichier JSON
+                url: 'pertinence.json',
                 type: 'GET',
                 dataType: 'json',
                 error: function() {
@@ -92,7 +92,6 @@
     });
                 </script>
                 </div>
-                
                 </div>
             </div>
             <div id="thematiques" class="main-section">
@@ -193,16 +192,12 @@
                       </div>
                     </div>
                   </div>
-
-
-
             </div>
             <div id="decouvrir" class="main-section">
                 <!-- Contenu pour Tout découvrir -->
                 <p class="titreBP">BIBLIOTHÈQUE DE BONNES PRATIQUES</p>
                 <div id="addBP"><i class="fas fa-circle-plus"></i></div>
-              <script>
-                
+              <script>  
                 function submitForm() {
                   var formData = {
                     nom: document.getElementById("nom").value,
@@ -228,21 +223,18 @@
                   fetch('https://script.google.com/macros/s/AKfycbzAN3HIU4Ivaai6t6Us3FrEw4jtAZ2S2qv9d70e6jtBNpm_Xm8yVCTfQrCmwdjd0s-HBg/exec', {
                     method: 'POST',
                     headers: {
-                      'Content-Type': 'text/plain' // Définir le type de contenu en texte brut
+                      'Content-Type': 'text/plain'
                     },
-                    body: formDataAsString // Envoi des données sous forme de texte brut
+                    body: formDataAsString
                   })
-                  .then(response => response.text()) // Traitement de la réponse en tant que texte
+                  .then(response => response.text())
                   .then(data => {
                     console.log(data);
                     alert("Nous avons bien reçu votre Bonne Pratique. Elle sera intégrée à la plateforme dans les prochaines semaines.");
                   })
                   .catch(error => console.error('Error:', error));
-                  
-                  return false; // Pour empêcher le rechargement de la page.
+                  return false;
                 }
-
-
               </script>
                 <div id="filters">
                         <select id="produit-select" name="produit" multiple>
@@ -347,8 +339,6 @@
                                 <option value="Subventionnement">Subventionnement</option>
                                 <option value="Budget">Budget</option>
                             </optgroup>
-                            
-                        
                         </select>
 
                 <select id="strate-select">
@@ -360,7 +350,6 @@
                     <option value="Entre 50 000 et 80 000 habitants">Entre 50 000 et 80 000 habitants</option>
                     <option value="Entre 80 000 et 100 000 habitants">Entre 80 000 et 100 000 habitants</option>
                     <option value="Plus de 100 000 habitants">Plus de 100 000 habitants</option>
-                    <!-- Les options seront ajoutées dynamiquement par le script.js -->
                   </select>
                   <select id="dep-nom-select">
                     <option value="">Choisir un département</option>
@@ -473,7 +462,6 @@
                     <option value='Royaume-Uni'>Royaume-Uni</option>
                     <option value='Slovénie'>Slovénie</option>
                     </select> 
-                    <!-- Les options seront ajoutées dynamiquement par le script.js -->
                   <div id="search-container">
                     <input type="text" id="search-input" placeholder="Filtrer par territoire, mots-clés...">
                     <img id="search-icon" src="/www/glass.png" alt="search-icon"/>
@@ -493,13 +481,9 @@
                   
                 </div>
                 <div id="vignettes-container">
-                    <!-- Les vignettes s'afficheront ici -->
                     <button id="load-more-btn">Suivant</button>
                 </div>
-                <div id="details-container">
-                    <!-- Les détails de la vignette seront chargés ici -->
-                    Chargement des détails...
-                </div>
+                <div id="details-container"></div>
             </div>
         </main>
     </div>
@@ -524,7 +508,6 @@
       <label for="insee">Collectivité :</label>
       <select id="insee" name="insee">
         <option value="" disabled selected> Choisir son territoire</option>
-          <!-- Les options seront ajoutées dynamiquement ici -->
       </select>
       <script>
         $('#insee').selectize({
@@ -644,22 +627,336 @@
         <button type="button" id="nextBtn" class="navigation-button" onclick="navigate(1)">Suivant</button>
         <input type="submit" id="submitButton" class="navigation-button" value="Envoyer">
       </div>
-
-
-      
       </form>
+      <script>
+let vignettesData = [];
+let displayCount = 60;
+
+function setMetaProperty(property, content) {
+  let head = document.getElementsByTagName('head')[0];
+  let meta = document.createElement('meta');
+  meta.setAttribute('property', property);
+  meta.setAttribute('content', content);
+  head.appendChild(meta);
+}
+
+function removeMetaProperty(property) {
+  let head = document.getElementsByTagName('head')[0];
+  let metas = document.querySelectorAll(`meta[property='${property}']`);
+  metas.forEach(meta => {
+    head.removeChild(meta);
+  });
+}
+
+function displayVignettes(data) {
+  const container = $('#vignettes-container');
+  const loadMoreBtn = $('#load-more-btn').detach();
+  container.empty(); 
+
+  const dataToDisplay = data.slice(0, displayCount);
+
+  dataToDisplay.forEach(item => {
+    if (item.INTITULE) {
+      const vignette = $(`
+        <div class="vignette">
+          <div class="details-link" tabindex="0">
+            <img src="www/webp/${item.WEBP}" alt="${item.INTITULE}" loading="lazy"/>
+            <div class="BP_text">
+              <h2 class="BP_title">${item.INTITULE} - ${item.TER} (${item.DEP_NOM})</h2>
+              <p class="BP_caption">${item.DESCRIPTION1}</p>
+              <a href="https://bonnes-pratiques.ithea-conseil.fr/?page=decouvrir&id=${item.detailsId}">${item.detailsId}</a>
+            </div>
+          </div>
+        </div>
+      `).on('click', () => {
+        displayDetails(item.detailsId);
+        const newUrl = `?page=decouvrir&id=${item.detailsId}`;
+        history.pushState({ path: newUrl }, '', newUrl);
+      });
+      container.append(vignette);
+    }
+  });
+
+  container.append(loadMoreBtn);
+  if (displayCount >= $(data).length || ($(data).length < 60 || displayCount > 659)) {
+      $('#load-more-btn').hide();
+  } else {
+      $('#load-more-btn').show();
+  }
+  if ($(data).length <1) {
+      container.append('<p>Aucune bonne pratique ne correspond à votre recherche.</p>')
+  }
+}
+
+  function filterVignettes() {
+    const query = $('#search-input').val().toLowerCase();
+    const strate = $('#strate-select').val();
+    const depnom = $('#dep-nom-select').val();
+    const thema = $('#produit-select').val();
+    const sortBy = $('#sort-select').val();
+  
+    const filteredData = vignettesData.filter(item => {
+      const themaMatch = thema.length === 0 || [item.THEMA1, item.THEMA2, item.THEMA3, item.THEMA4].some(themaItem => thema.includes(String(themaItem)));
+      return (item.DEP?.toLowerCase().includes(query) ||
+              item.TER?.toLowerCase().includes(query) ||
+              item.DEP_NOM?.toLowerCase().includes(query) ||
+              item.INTITULE?.toLowerCase().includes(query) ||
+              item.SYNONYMES1?.toLowerCase().includes(query) ||
+              item.SYNONYMES2?.toLowerCase().includes(query) ||
+              item.SYNONYMES3?.toLowerCase().includes(query) ||
+              item.DESCRIPTION1?.toLowerCase().includes(query) ||
+              item.DESCRIPTION2?.toLowerCase().includes(query) ||
+              item.DESCRIPTION3?.toLowerCase().includes(query)) &&
+             (item.STRATE === strate || strate === "") &&
+             (item.DEP_NOM === depnom || depnom === "") &&
+             themaMatch;
+    });
+  
+    if (sortBy) {
+      filteredData.sort((a, b) => {
+        let valueA = isNaN(a[sortBy]) ? a[sortBy]?.toLowerCase() : parseFloat(a[sortBy]);
+        let valueB = isNaN(b[sortBy]) ? b[sortBy]?.toLowerCase() : parseFloat(b[sortBy]);
+        
+        if (valueA < valueB) return 1;
+        if (valueA > valueB) return -1;
+        return 0;
+      });
+    }    
+    displayVignettes(filteredData);
+  }
+
+  function recover() {
+  var detailsContainer = document.querySelector('#details-container');
+  var url = window.location.href;
+  var hasId = url.includes('id=');
+  if (hasId) {
+      detailsContainer.classList.add('open');
+  } else {
+      detailsContainer.classList.remove('open');
+  }
+}
+
+function handleNavigation() {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const page = urlParams.get('page') || 'accueil';
+
+  $('.nav-link').removeClass('active');
+  $('.main-section').removeClass('active');
+  $(`a[href="?page=${page}"]`).addClass('active');
+  $('#' + page).addClass('active');
+
+  if (page==='thematiques') {
+    removeMetaProperty('og:title');
+    removeMetaProperty('og:type');
+    removeMetaProperty('og:image');
+    removeMetaProperty('og:url');
+    removeMetaProperty('og:description');
+    document.title = "Plateforme Bonnes Pratiques - Thématiques";
+    document.querySelector('meta[name="description"]').setAttribute("content", "Explorez librement notre bibliothèque à travers des thématiques sélectionnées et accédez rapidement aux bonnes pratiques pertinentes.");
+    setMetaProperty('og:title', "Plateforme Bonnes Pratiques - Thématiques");
+    setMetaProperty('og:type', 'website');
+    setMetaProperty('og:url', 'https://bonnes-pratiques.ithea-conseil.fr/?page=thematiques');
+    setMetaProperty('og:description', "Explorez librement notre bibliothèque à travers des thématiques sélectionnées et accédez rapidement aux bonnes pratiques pertinentes.");
+  } else if (page==='accueil') {
+    removeMetaProperty('og:title');
+    removeMetaProperty('og:type');
+    removeMetaProperty('og:image');
+    removeMetaProperty('og:url');
+    removeMetaProperty('og:description');
+    document.title = "Plateforme Bonnes Pratiques";
+    document.querySelector('meta[name="description"]').setAttribute("content", "Aider les collectivités territoriales à orienter leurs politiques publiques à travers un répertoire complet de bonnes pratiques en France et en UE.");
+    setMetaProperty('og:title', "Plateforme Bonnes Pratiques");
+    setMetaProperty('og:type', 'website');
+    setMetaProperty('og:url', 'https://bonnes-pratiques.ithea-conseil.fr/?page=accueil');
+    setMetaProperty('og:description', "Aider les collectivités territoriales à orienter leurs politiques publiques à travers un répertoire complet de bonnes pratiques en France et en UE.");
+  } else if (page === 'decouvrir') {
+      const id = urlParams.get('id');
+      filterVignettes();
+      if (id) {
+          displayDetails(id);
+      } else {    
+      removeMetaProperty('og:title');
+      removeMetaProperty('og:type');
+      removeMetaProperty('og:image');
+      removeMetaProperty('og:url');
+      removeMetaProperty('og:description');
+      document.title = "Plateforme Bonnes Pratiques - " + "Découvrir";
+      document.querySelector('meta[name="description"]').setAttribute("content", "Explorez + de 700 bonnes pratiques poussées par les collectivités territoriales en France et en UE. Filtrez et recherchez par thématique, territoire ou strate de population.");
+      setMetaProperty('og:title', "Plateforme Bonnes Pratiques - Découvrir");
+      setMetaProperty('og:type', 'website');
+      setMetaProperty('og:image', "https://bonnes-pratiques.ithea-conseil.fr/decouvrir.jpg");
+      setMetaProperty('og:url', 'https://bonnes-pratiques.ithea-conseil.fr/?page=decouvrir');
+      setMetaProperty('og:description', "Explorez + de 700 bonnes pratiques poussées par les collectivités territoriales en France et en UE. Filtrez et recherchez par thématique, territoire ou strate de population.");
+    }
+  }
+}
+
+function displayDetails(id) {
+  const details = vignettesData.find(item => item.detailsId === id);
+  // updateCanonicalIfIdPresent();
+  removeMetaProperty('og:title');
+  removeMetaProperty('og:type');
+  removeMetaProperty('og:image');
+  removeMetaProperty('og:url');
+  removeMetaProperty('og:description');
+  document.title = details.INTITULE;
+  document.querySelector('meta[name="description"]').setAttribute("content", details.DESCRIPTION1);
+  setMetaProperty('og:title', `${details.INTITULE}`);
+  setMetaProperty('og:type', 'article');
+  setMetaProperty('og:image', `${details.WEBP}`);
+  setMetaProperty('og:url', 'https://bonnes-pratiques.ithea-conseil.fr/?page=decouvrir&id=' + `${details.detailsId}`);
+  setMetaProperty('og:description', `${details.DESCRIPTION1}`);
+
+  const detailsContainer = $('#details-container');
+  var style = document.createElement('style');
+  var newStyle = `
+  .BP_page_background {
+    background-image: url(www/webp/${details.WEBP});
+  }
+  `;
+  style.innerHTML = newStyle
+  document.head.appendChild(style);
+
+  var detailsMarkup = `
+    <div class="close-btn">✖ Fermer</div>
+    <div class="BP_page_background"></div>
+    <h2 itemprop="headline">${details.INTITULE} - ${details.TER} (${details.DEP_NOM})</h2>
+    <h3><span itemprop="contentLocation">${details.PAYS} | ${details.TER}</span> (${parseInt(details.POP).toLocaleString()} hab.) | <meta itemprop="datePublished" content="${details.ANNEE}-01-01"><span>${details.ANNEE}</span> </h3>
+    <div class="BP_page_content">
+    <div class="BP_page_imgdownload">
+    <img itemprop="image" src="https://bonnes-pratiques.ithea-conseil.fr/www/webpv/${details.WEBP}" class="BP_page_img" alt="${details.INTITULE}" loading="lazy"/>
+    <a href="www/pdf/Bonnes Pratiques_Partie${details.N}.pdf" download="${details.INTITULE}">Télécharger en PDF<i class="fa-solid fa-download"></i></a>
+    </div>
+    <span itemprop="articleBody" class="BP_page_description">
+    <p>${details.DESCRIPTION1}</p>
+    <p>${details.DESCRIPTION2}</p>
+    <p>${details.DESCRIPTION3}</p>
+    </span>
+    <div class="BP_page_graphref">
+    <span class="BP_page_ref">
+    <h4>Portée par </h4>
+    <p itemprop="publisher">${details.CREDIT}</p>
+    <h4>Contact</h4>
+    <p>${details.CONTACT}</p>
+    <a itemprop="isBasedOn" href="${details.LINK}">Voir la bonne pratique (lien externe)</a>
+    <a itemprop="url" href="${details.LIEN}">Lien vers cette bonne pratique</a>
+    </span>
+    <div id="div_myChart" style="width: 360px; height: 200px;">
+    <canvas id="myChart" width="360" height="200"></canvas>
+    <div class="info-icon"><img src="/www/info.png" alt="info-icon" style="height:24px;width:24px;"/>
+        <div class="tooltip">
+            Ces critères ont été choisis afin de pouvoir mieux se repérer entre les centaines de bonnes pratiques de notre base de données. Ils ont été définis par les différents rédacteurs des fiches Bonnes Pratiques à partir de nos propres indicateurs d’évaluations.<br><br><br>
+            <strong>Essaimable</strong>: Si la bonne pratique a une note élevée à ce critère, cela signifie que le projet est adapté à tout type de collectivité. A contrario, si la notation est moins élevée, cela peut vouloir dire que le projet est atypique et ne correspond qu’à une certaine typologie de collectivités (territoire littoral ? territoire très touristique ?).<br><br>
+            <strong>Économique</strong>: Si la bonne pratique coûte peu cher à mettre en œuvre et demande peu de moyens (moyens financiers, ressources humaines, etc.), alors la note est forcément élevée !<br><br>
+            <strong>Facile à organiser</strong>: Si la bonne pratique a une note élevée à ce critère, cela signifie que sa mise en œuvre ne demande que peu de préparation ou d’organisation.<br><br>
+            <strong>Innovant</strong>: Si la note au critère Innovant est élevée, cela veut dire que l’innovation sociale, écologique, économique est au cœur de la mise en œuvre de cette bonne pratique !<br><br>
+            <strong>Original</strong>: La bonne pratique aura une note élevée au critère d’originalité si elle est inédite et inspirante !<br><br>
+            <strong>Valorisable</strong>: Si la bonne pratique a une note élevée à ce critère, cela veut dire que le projet mis en œuvre nous semble très attractif : lorsqu’on lit le titre, on a tout de suite envie d’en savoir plus !
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+  `;
+  detailsContainer.html(detailsMarkup).addClass('open');
+
+  $('.close-btn').on('click', function () {
+    document.title = "Plateforme Bonnes Pratiques";
+    var metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+        metaDescription.setAttribute('content', 'Aider les collectivités territoriales à orienter leurs politiques publiques à travers un répertoire complet de bonnes pratiques en France et en UE.');
+    }
+    detailsContainer.removeClass('open');
+    history.pushState({page: 'decouvrir'}, '', '?page=decouvrir');
+    handleNavigation();
+  });
+
+  $("#details-container").addClass('open');
+  const detailsc = document.getElementById('details-container');
+  detailsc.setAttribute("itemscope","");
+  detailsc.setAttribute("itemtype","https://schema.org/Article");
+  
+  const chartData = {
+    labels: ['Essaimable', 'Économique', 'Facile', 'Innovant', 'Original', 'Valorisable'],
+    datasets: [{
+        label: 'Évaluation',
+        data: [details.Essaimable, details.Économique, details.Facile, details.Innovant, details.Original, details.Valorisable],
+        backgroundColor: [
+          '#f9b832',
+          '#eb2c30',
+          '#f38331',
+          '#96d322',
+          '#1db5c5',
+          '#5c368d'
+        ],
+        borderColor: [
+          '#f9b832',
+          '#eb2c30',
+          '#f38331',
+          '#96d322',
+          '#1db5c5',
+          '#5c368d'
+        ],
+        borderWidth: 1
+    }]
+};
+
+const config = {
+    type: 'bar',
+    data: chartData,
+    options: {
+      indexAxis: 'y',
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: {
+            display: false
+          }
+        },
+        x: {
+          grid: {
+            display: true
+          },
+          max: 10
+        }
+      },
+      plugins: {
+        legend: {
+          display: false 
+        }
+      }
+    }
+};
+
+const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+);
+}
+
+fetch('BDD_finale___.csv')
+.then(response => response.text())
+.then(csvText => {
+    Papa.parse(csvText, {
+        header: true,
+        complete: function (results) {
+            vignettesData = results.data;
+            handleNavigation();
+        }
+    });
+});
+      </script>
 
       <script>
         let currentSection = 1;
         const maxSections = 5;
-
         function showSection(section) {
           for (let i = 1; i <= maxSections; i++) {
             document.getElementById('section' + i).style.display = 'none';
           }
           document.getElementById('section' + section).style.display = 'block';
         }
-
         function navigate(direction) {
           if (direction === 1 && currentSection === 1) {
             var emailInput = document.getElementById('email');
@@ -668,7 +965,6 @@
               return;
             }
           }
-
           if (direction === 1 && currentSection === 4) {
             var emailInput2 = document.getElementById('contactEmail');
             if (!emailInput2.checkValidity()) {
@@ -676,7 +972,6 @@
               return;
             }
           }
-
           currentSection += direction;
           if (currentSection > maxSections) {
             currentSection = maxSections;
@@ -687,13 +982,11 @@
           showSection(currentSection);
           const percentage = (currentSection / maxSections) * 100;
           document.querySelector('#bpForm .progress-percentage').textContent = percentage.toFixed(0) + '%';
-
           if (currentSection == 1) {
             document.getElementById('prevBtn').style.display = 'none';
           } else {
             document.getElementById('prevBtn').style.display = 'inline-block';
           }
-
           if (currentSection == maxSections) {
             document.getElementById('nextBtn').style.display = 'none';
             document.getElementById('submitButton').style.display = 'inline-block';
@@ -702,38 +995,10 @@
             document.getElementById('submitButton').style.display = 'none';
           }
         }
-
-        // Initialize the form
         showSection(currentSection);
-        document.getElementById('prevBtn').style.display = 'none'; // Hide 'Previous' on the first section
-
+        document.getElementById('prevBtn').style.display = 'none';
       </script>
-  
-    <script src="script.js"></script>
-    <script src="script_thema.js"></script>
-    <script>
-      function resetFilters() {
-          var selectizes = $('.selectized').selectize();
-          $.each(selectizes, function(index, select) {
-              var control = select.selectize;
-              control.clear();
-          });
-
-          var input = document.getElementById('search-input');
-          var tri = document.getElementById('sort-select');
-          if (input) {
-              input.value = '';
-              input.dispatchEvent(new Event('input'));
-              input.dispatchEvent(new Event('change'));
-          }
-          if (tri) {
-              tri.selectedIndex = 0;
-              $(tri).change();
-          }
-
-      }
-
-
-    </script>
+    <script src="script.js" defer></script>
+    <script src="script_thema.js" defer></script>
 </body>
 </html>

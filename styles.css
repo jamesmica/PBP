@@ -250,7 +250,7 @@ p.titreBP {
 }
 
 #thematiques p.titreBP {
-    margin-bottom: 56px;
+    margin-bottom: 55px !important;
 }
 
 #thematiques p.titreBP, #accueil h1.titreBP {
