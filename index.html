@@ -784,7 +784,7 @@ function handleNavigation() {
       removeMetaProperty('og:image');
       removeMetaProperty('og:url');
       removeMetaProperty('og:description');
-      document.title = "Plateforme Bonnes Pratiques - " + "Découvrir";
+      document.title = "Plateforme Bonnes Pratiques - Découvrir";
       document.querySelector('meta[name="description"]').setAttribute("content", "Explorez + de 700 bonnes pratiques poussées par les collectivités territoriales en France et en UE. Filtrez et recherchez par thématique, territoire ou strate de population.");
       setMetaProperty('og:title', "Plateforme Bonnes Pratiques - Découvrir");
       setMetaProperty('og:type', 'website');
@@ -804,12 +804,12 @@ function displayDetails(id) {
   removeMetaProperty('og:url');
   removeMetaProperty('og:description');
   document.title = details.INTITULE;
-  document.querySelector('meta[name="description"]').setAttribute("content", details.DESCRIPTION1);
+  document.querySelector('meta[name="description"]').setAttribute("content", details.META);
   setMetaProperty('og:title', `${details.INTITULE}`);
   setMetaProperty('og:type', 'article');
   setMetaProperty('og:image', `${details.WEBP}`);
   setMetaProperty('og:url', 'https://bonnes-pratiques.ithea-conseil.fr/?page=decouvrir&id=' + `${details.detailsId}`);
-  setMetaProperty('og:description', `${details.DESCRIPTION1}`);
+  setMetaProperty('og:description', `${details.META}`);
 
   const detailsContainer = $('#details-container');
   var style = document.createElement('style');
