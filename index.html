@@ -467,7 +467,7 @@
                     </select> 
                   <div id="search-container">
                     <input type="text" id="search-input" placeholder="Filtrer par territoire, mots-clés...">
-                    <img id="search-icon" src="/www/glass.png" alt="search-icon"/>
+                    <img id="search-icon" src="www/glass.png" alt="search-icon"/>
                   </div>
                   <div id="sort-container">
                     <select id="sort-select" class="uniform-select" required>
@@ -478,7 +478,7 @@
                       <option value="Économique">Économique</option>
                       <option value="Essaimable">Essaimable</option>
                     </select>
-                    <img id="sort-icon" src="/www/sort.png" alt="sort-icon"/>
+                    <img id="sort-icon" src="www/sort.png" alt="sort-icon"/>
                   </div>
                   <button id="reset-button" onclick="resetFilters()" href="#">Réinitialiser</button>
                   
@@ -847,7 +847,7 @@ function displayDetails(id) {
     </span>
     <div id="div_myChart" style="width: 360px; height: 200px;">
     <canvas id="myChart" width="360" height="200"></canvas>
-    <div class="info-icon"><img src="/www/info.png" alt="info-icon" style="height:24px;width:24px;"/>
+    <div class="info-icon"><img src="www/info.png" alt="info-icon" style="height:24px;width:24px;"/>
         <div class="tooltip">
             Ces critères ont été choisis afin de pouvoir mieux se repérer entre les centaines de bonnes pratiques de notre base de données. Ils ont été définis par les différents rédacteurs des fiches Bonnes Pratiques à partir de nos propres indicateurs d’évaluations.<br><br><br>
             <strong>Essaimable</strong>: Si la bonne pratique a une note élevée à ce critère, cela signifie que le projet est adapté à tout type de collectivité. A contrario, si la notation est moins élevée, cela peut vouloir dire que le projet est atypique et ne correspond qu’à une certaine typologie de collectivités (territoire littoral ? territoire très touristique ?).<br><br>
@@ -1004,9 +1004,15 @@ fetch('BDD_finale___.csv')
     <script src="script.js"></script>
     <script src="script_thema.js" defer></script>
     <script type="text/javascript">
-      async(function (err, res) {
-        window.IS_RENDERED = true;
-      });
+      async function initializePage() {
+        try {
+          window.IS_RENDERED = true;
+        } catch (error) {
+          console.error("An error occurred:", error);
+        }
+      }
+      initializePage();
     </script>
+    
 </body>
 </html>
