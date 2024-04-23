@@ -21,7 +21,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0LQ7GD27TM"></script>
-    <script async src="https://kit.fontawesome.com/7f38d075bc.js" crossorigin="anonymous"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -39,9 +38,9 @@
             <a href="?page=accueil"> <img src="www/logo.webp" alt ="logo"></a>
             <a href="?page=accueil"> <img src="www/logo_crop.webp" alt ="logo"></a>
             <ul class="nav-menu">
-                <li class="nav-item"><a href="?page=accueil" class="nav-link"><i class="fas fa-solid fa-house"></i><span class="nav-text">Accueil</span></a></li>
-                <li class="nav-item"><a href="?page=thematiques" class="nav-link"><i class="fas fa-solid fa-book"></i><span class="nav-text">Thématiques</span></a></li>
-                <li class="nav-item"><a href="?page=decouvrir" class="nav-link"><i class="fas fa-solid fa-compass"></i><span class="nav-text">Tout découvrir</span></a></li>
+                <li class="nav-item"><a href="?page=accueil" class="nav-link"><img src = "www/house.svg" alt="accueil" style="height: 24px;"/><span class="nav-text">Accueil</span></a></li>
+                <li class="nav-item"><a href="?page=thematiques" class="nav-link"><img src = "www/book.svg" alt="thématiques" style="height: 24px;"/><span class="nav-text">Thématiques</span></a></li>
+                <li class="nav-item"><a href="?page=decouvrir" class="nav-link"><img src = "www/compass.svg" alt="decouvrir les bonnes pratiques" style="height: 24px;"/><span class="nav-text">Tout découvrir</span></a></li>
             </ul>
         </nav>
         <main class="main-content">
@@ -200,7 +199,7 @@
             <div id="decouvrir" class="main-section">
                 <!-- Contenu pour Tout découvrir -->
                 <p class="titreBP">BIBLIOTHÈQUE DE BONNES PRATIQUES</p>
-                <div id="addBP"><i class="fas fa-circle-plus"></i></div>
+                <div id="addBP"><img src = "www/circle-plus.svg" alt="ajouter une bonne pratique" style="filter: invert(21%) sepia(71%) saturate(2584%) hue-rotate(141deg) brightness(96%) contrast(102%);"/></div>
               <script>  
                 function submitForm() {
                   var formData = {
@@ -676,7 +675,7 @@ function displayVignettes(data) {
         displayDetails(item.detailsId);
         const newUrl = `?page=decouvrir&id=${item.detailsId}`;
         history.pushState({ path: newUrl }, '', newUrl);
-        handleNavigation();
+        updateCanonicalIfIdPresent();
       });
       container.append(vignette);
     }
@@ -849,7 +848,7 @@ function displayDetails(id) {
     <div class="BP_page_content">
     <div class="BP_page_imgdownload">
     <img itemprop="image" src="https://bonnes-pratiques.ithea-conseil.fr/www/webpv/${details.WEBP}" class="BP_page_img" alt="${details.INTITULE}" loading="lazy"/>
-    <a href="www/pdf/Bonnes Pratiques_Partie${details.N}.pdf" download="${details.INTITULE}">Télécharger en PDF<i class="fa-solid fa-download"></i></a>
+    <a href="www/pdf/Bonnes Pratiques_Partie${details.N}.pdf" download="${details.INTITULE}">Télécharger en PDF<img src = "www/download.svg" alt="télécharger en pdf" style="height: 14px; margin-left: 8px; margin-bottom: -1px; filter: invert(91%) sepia(100%) saturate(6726%) hue-rotate(184deg) brightness(133%) contrast(102%);"/></a>
     </div>
     <span itemprop="articleBody" class="BP_page_description">
     <p>${details.DESCRIPTION1}</p>

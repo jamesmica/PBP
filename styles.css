@@ -4,6 +4,24 @@ body, html {
     font-family: 'Calibri', 'Arial', 'Roboto', sans-serif, 'Courier';
 }
 
+.sidebar li a>img {
+    margin: 12px 0 6px 6px;
+    height: 24px;
+    padding: 0px 0px 2px 1px !important;
+    width: 24px;
+    filter: invert(100%) sepia(0%) saturate(102%) hue-rotate(139deg) brightness(117%) contrast(100%);
+}
+
+.sidebar li a.active>img {
+    margin: 12px 0 6px 6px;
+    height: 24px;
+    padding: 0px 0px 2px 1px !important;
+    width: 24px;
+    filter: invert(0%) sepia(80%) saturate(6828%) hue-rotate(125deg) brightness(92%) contrast(109%);
+}
+
+
+
 .BP_page_ref a:not([href]), .BP_page_ref a[href=""] {
     display: none;
 }
@@ -810,12 +828,6 @@ button#load-more-btn:hover {
 .item {
 	white-space: nowrap;
 	font-size: 12px;
-}
-
-i.fas.fa-circle-plus {
-    font-size: 48px;
-    color: #00753B;
-    border-radius: 64px;
 }
 
 div#addBP {
