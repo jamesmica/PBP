@@ -248,18 +248,3 @@ function resetFilters() {
 
 }
 
-// function updateCanonicalIfIdPresent() {
-//   const currentUrl = new URL(window.location.href);
-//   const searchParams = currentUrl.searchParams;
-
-//   if (searchParams.has('id')) {
-//     let canonicalLink = document.querySelector("link[rel='canonical']");
-//     if (!canonicalLink) {
-//       canonicalLink = document.createElement("link");
-//       canonicalLink.setAttribute("rel", "canonical");
-//       document.head.appendChild(canonicalLink);
-//     }
-
-//     canonicalLink.setAttribute("href", currentUrl.href);
-//   }
-// }

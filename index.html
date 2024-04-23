@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="description" content="Aider les collectivités territoriales à orienter leurs politiques publiques à travers un répertoire complet de bonnes pratiques en France et en UE.">
     <title>Plateforme Bonnes Pratiques</title>
+    <link rel="canonical" href="https://bonnes-pratiques.ithea-conseil.fr" />
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
     <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1.0, user-scalable=no">
@@ -675,6 +676,7 @@ function displayVignettes(data) {
         displayDetails(item.detailsId);
         const newUrl = `?page=decouvrir&id=${item.detailsId}`;
         history.pushState({ path: newUrl }, '', newUrl);
+        handleNavigation();
       });
       container.append(vignette);
     }
@@ -737,6 +739,7 @@ function displayVignettes(data) {
   } else {
       detailsContainer.classList.remove('open');
   }
+  updateCanonicalIfIdPresent();
 }
 
 function handleNavigation() {
@@ -793,11 +796,28 @@ function handleNavigation() {
       setMetaProperty('og:description', "Explorez + de 700 bonnes pratiques poussées par les collectivités territoriales en France et en UE. Filtrez et recherchez par thématique, territoire ou strate de population.");
     }
   }
+
+  updateCanonicalIfIdPresent();
 }
+
+function updateCanonicalIfIdPresent() {
+  const currentUrl = new URL(window.location.href);
+  const searchParams = currentUrl.searchParams;
+
+    let canonicalLink = document.querySelector("link[rel='canonical']");
+    if (!canonicalLink) {
+      canonicalLink = document.createElement("link");
+      canonicalLink.setAttribute("rel", "canonical");
+      document.head.appendChild(canonicalLink);
+    }
+    console.log(currentUrl.href);
+    canonicalLink.setAttribute("href", currentUrl.href);
+    console.log('fired');
+}
+
 
 function displayDetails(id) {
   const details = vignettesData.find(item => item.detailsId === id);
-  // updateCanonicalIfIdPresent();
   removeMetaProperty('og:title');
   removeMetaProperty('og:type');
   removeMetaProperty('og:image');
