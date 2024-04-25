@@ -21,8 +21,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0LQ7GD27TM"></script>
-    <script src="https://platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
-    <script type="IN/Share" data-url="https://www.linkedin.com"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -667,8 +665,8 @@ function displayVignettes(data) {
           <div class="details-link" tabindex="0">
             <img src="www/webp/${item.WEBP}" alt="${item.INTITULE}" loading="lazy"/>
             <div class="BP_text">
-              <h2 class="BP_title">${item.INTITULE} - ${item.TER} (${item.DEP_NOM})</h2>
-              <p class="BP_caption">${item.DESCRIPTION1}</p>
+              <h2 data-nosnippet class="BP_title">${item.INTITULE} - ${item.TER} (${item.DEP_NOM})</h2>
+              <p data-nosnippet class="BP_caption">${item.DESCRIPTION1}</p>
               <a href="https://bonnes-pratiques.ithea-conseil.fr/?page=decouvrir&id=${item.detailsId}">${item.detailsId}</a>
             </div>
           </div>
