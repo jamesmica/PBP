@@ -404,8 +404,6 @@ p.BP_title {
     padding-top: 16px;
     padding-right: 32px;
     max-width: 38vw;
-    /* padding: 16px; */
-    column-count: 2;
 }
 
 .BP_page_graphref {
@@ -422,7 +420,7 @@ p.BP_title {
     margin-right: 64px;
 }
 
-.BP_page_ref h4 {
+.BP_page_ref .porteur {
     margin: 0;
 }
 
@@ -861,7 +859,9 @@ div#addBP {
     left: 32px;
 }
 
-
+p.porteur {
+    font-weight: 900;
+}
 
 #addBP {
     position: relative;
@@ -869,6 +869,11 @@ div#addBP {
     z-index: 5;
     transition: .3s opacity ease;
   }
+
+  p.add-BP-p {
+    font-weight: 900;
+    margin-top: 24px;
+}
   
   #addBP:hover::after,
   #addBP:hover::before {
@@ -942,13 +947,6 @@ div#addBP {
 
 #bpForm label {
     font-size: 12px;
-}
-
-#bpForm h4 {
-    color: #00753B;
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
 }
 
 form#bpForm {
@@ -1079,14 +1077,6 @@ form#bpForm {
 
     }
     
-
-    #bpForm h5 {
-        white-space: normal;
-        margin-bottom: 0px;
-        margin-top: 32px;
-        font-size: 18px;
-    }
-
     #bpForm .selectize-control.single > * {
         font-size: 14px;
     }

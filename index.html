@@ -497,17 +497,17 @@
       </div>
       <div class="form-header">
           <div class="close-btn-addbp">✖ Fermer</div>
-          <h4>Je souhaite partager une Bonne Pratique</h4>
+          <p class="add-BP-p">Je souhaite partager une Bonne Pratique</p>
       </div>
       <div class="form-section" id="section1">
-      <h5>1. Vous êtes ...</h5>
+      <p>1. Vous êtes ...</p>
       <label for="nom">Nom :</label>
       <input type="text" id="nom" name="nom" size="50"><br>
       <label for="fonction">Fonction :</label>
       <input type="text" id="fonction" name="fonction" size="50"><br>
       <label for="email">Email :</label>
       <input type="email" id="email" name="email" size="50" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Veuillez entrer une adresse mail valide.">
-      <h5>2. Quel est le nom de votre collectivité ?</h5>
+      <p>2. Quel est le nom de votre collectivité ?</p>
       <label for="insee">Collectivité :</label>
       <select id="insee" name="insee">
         <option value="" disabled selected> Choisir son territoire</option>
@@ -550,10 +550,10 @@
       </div>
 
       <div class="form-section" id="section2" style="display: none;">
-      <h5>3. En quelle année cette Bonne Pratique a-t-elle été mise en place ?</h5>
+      <p>3. En quelle année cette Bonne Pratique a-t-elle été mise en place ?</p>
       <label for="miseEnPlace">Année :</label>
       <input type="number" id="miseEnPlace" name="miseEnPlace" size="50"><br>
-      <h5>4. Dans quelle thématique pourriez-vous la classer ? </h5>
+      <p>4. Dans quelle thématique pourriez-vous la classer ? </p>
       <label for="thematique">Thématique :</label>
       <select id="thematique" name="thematique">
           <option value="Attractivité du territoire">Attractivité du territoire</option>
@@ -575,22 +575,22 @@
       </div>
 
       <div class="form-section" id="section3" style="display: none;">
-      <h5>5. Comment décrirez vous votre Bonne Pratique en 2/3 phrases ?</h5>
+      <p>5. Comment décrirez vous votre Bonne Pratique en 2/3 phrases ?</p>
       <label for="description">Description :</label>
       <textarea id="description" name="description" rows="4" cols="50"></textarea><br>
-      <h5>6. A quels besoins répond votre Bonne Pratique ?</h5>
+      <p>6. A quels besoins répond votre Bonne Pratique ?</p>
       <label for="besoins">Besoins :</label>
       <textarea id="besoins" name="besoins" rows="4" cols="50"></textarea><br>
       </div>
 
       <div class="form-section" id="section4" style="display: none;">
-      <h5>7. Votre Bonne Pratique est-elle facilement réplicable dans d'autres territoires ? Quelles sont les points de vigilance à avoir si on souhaite la mettre en œuvre ?</h5>
+      <p>7. Votre Bonne Pratique est-elle facilement réplicable dans d'autres territoires ? Quelles sont les points de vigilance à avoir si on souhaite la mettre en œuvre ?</p>
       <label for="replicabilite">Replicabilité :</label>
       <textarea id="replicabilite" name="replicabilite" rows="4" cols="50"></textarea><br>
-      <h5>8. Avez-vous bénéficié de ressources ou financements particuliers ? Si oui de la part de quelles acteurs/structures ? </h5>
+      <p>8. Avez-vous bénéficié de ressources ou financements particuliers ? Si oui de la part de quelles acteurs/structures ? </p>
       <label for="ressources">Ressources :</label>
       <textarea id="ressources" name="ressources" rows="4" cols="50"></textarea><br>
-      <h5>9. Qui doit-on contacter si on souhaite avoir plus de précisions concernant votre Bonne Pratique ? (NOM + contact mail)</h5>
+      <p>9. Qui doit-on contacter si on souhaite avoir plus de précisions concernant votre Bonne Pratique ? (NOM + contact mail)</p>
       <label for="contactNom">Nom du contact :</label>
       <input type="text" id="contactNom" name="contactNom" size="50"><br>
       <label for="contactEmail">Email du contact :</label>
@@ -598,7 +598,7 @@
       </div>
 
       <div class="form-section" id="section5" style="display: none;">
-      <h5>10. Sur une échelle de 1 à 5 (1 représentant "Peu d'impact" et 5 "Beaucoup d'impact"), comment évalueriez-vous l'impact de cette Bonne Pratique ?</h5>
+      <p>10. Sur une échelle de 1 à 5 (1 représentant "Peu d'impact" et 5 "Beaucoup d'impact"), comment évalueriez-vous l'impact de cette Bonne Pratique ?</p>
       <label>Impact (1 = Peu d'impact à 5 = Beaucoup d'impact) :</label>
       <div id="rating-container">
         <span class="rating-circle" data-value="1">1</span>
@@ -621,7 +621,7 @@
               });
           });
       </script>
-      <h5>11. Si vous avez d'autres infos à nous partager ...</h5>
+      <p>11. Si vous avez d'autres infos à nous partager ...</p>
       <label for="infosSupplementaires">Infos Supplémentaires :</label>
       <textarea id="infosSupplementaires" name="infosSupplementaires" rows="4" cols="50"></textarea><br>
       </div> 
@@ -787,7 +787,7 @@ function handleNavigation() {
       removeMetaProperty('og:url');
       removeMetaProperty('og:description');
       document.title = "Plateforme Bonnes Pratiques - Découvrir";
-      document.querySelector('meta[name="description"]').setAttribute("content", "Explorez + de 700 bonnes pratiques poussées par les collectivités territoriales en France et en UE. Filtrez et recherchez par thématique, territoire ou strate de population.");
+      document.querySelector('meta[name="description"]').setAttribute("content", "Explorez + de 700 bonnes pratiques et politiques publiques locales poussées par les collectivités territoriales en France et en UE.");
       setMetaProperty('og:title', "Plateforme Bonnes Pratiques - Découvrir");
       setMetaProperty('og:type', 'website');
       setMetaProperty('og:image', "https://bonnes-pratiques.ithea-conseil.fr/decouvrir.jpg");
@@ -850,16 +850,16 @@ function displayDetails(id) {
     <img itemprop="image" src="https://bonnes-pratiques.ithea-conseil.fr/www/webpv/${details.WEBP}" class="BP_page_img" alt="${details.INTITULE}" loading="lazy"/>
     <a href="www/pdf/Bonnes Pratiques_Partie${details.N}.pdf" download="${details.INTITULE}">Télécharger en PDF<img src = "www/download.svg" alt="télécharger en pdf" style="height: 14px; margin-left: 8px; margin-bottom: -1px; filter: invert(91%) sepia(100%) saturate(6726%) hue-rotate(184deg) brightness(133%) contrast(102%);"/></a>
     </div>
-    <span itemprop="articleBody" class="BP_page_description">
+    <article itemprop="articleBody" class="BP_page_description">
     <p>${details.DESCRIPTION1}</p>
     <p>${details.DESCRIPTION2}</p>
     <p>${details.DESCRIPTION3}</p>
-    </span>
+    </article>
     <div class="BP_page_graphref">
     <span class="BP_page_ref">
-    <h4>Portée par </h4>
+    <p class="porteur">Portée par </p>
     <p itemprop="publisher">${details.CREDIT}</p>
-    <h4>Contact</h4>
+    <p class="porteur">Contact</p>
     <p>${details.CONTACT}</p>
     <a itemprop="isBasedOn" href="${details.LINK}">Voir la bonne pratique (lien externe)</a>
     <a itemprop="url" href="${details.LIEN}">Lien vers cette bonne pratique</a>
