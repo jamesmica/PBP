@@ -344,10 +344,12 @@ p.titreBP {
     padding: 8px;
 }
 
-h2.BP_title {
+p.BP_title {
     font-size: 18px;
     margin: 0;
     height: 80px;
+    font-weight: 900;
+    color: #00753B;
 }
 
 
@@ -1682,10 +1684,12 @@ a[itemprop="url"] {
         font-size: 12px;
     }
 
-    h2.BP_title {
+    p.BP_title {
         font-size: 18px;
         margin: 0;
         height: 96px;
+        font-weight: 900;
+        color: #00753B;
     }
 
     div#rating-container {
