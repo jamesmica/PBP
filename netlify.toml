@@ -1,0 +1,8 @@
+[functions]
+directory = "netlify/functions"
+
+[[redirects]]
+from = "https://bonnes-pratiques.ithea-conseil.fr/*"
+to = "/.netlify/functions/redirect"
+status = 301
+force = true
